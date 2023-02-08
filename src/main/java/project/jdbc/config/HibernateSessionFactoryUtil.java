@@ -27,3 +27,5 @@ public class HibernateSessionFactoryUtil {
         return sessionFactory;
     }
 }
+
+// Забыл создать новую ветку, простите.
