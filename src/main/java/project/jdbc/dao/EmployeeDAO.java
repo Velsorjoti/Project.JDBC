@@ -12,9 +12,9 @@ public interface EmployeeDAO {
 
     List<Employee> readAllEmployee();
 
-    void updateEmployeeById(int id, String name);
+    void updateEmployeeById(Employee employee);
 
-    void deleteEmployeeById(int id);
+    void deleteEmployeeById(Employee employee);
 
 }
 

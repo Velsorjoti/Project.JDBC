@@ -1,19 +1,28 @@
 package project.jdbc.model;
 
+import javax.persistence.*;
 import java.util.Objects;
-
+@Entity
+@Table (name = "employee")
 public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column (name = "fist_name")
     private String fistName;
+    @Column (name = "last_name")
     private String lastName;
+    @Column (name = "gender")
     private String gender;
+    @Column (name = "age")
     private int age;
-    private City city;
+    @Column(name = "city_id")
+    private Integer city;
 
     public Employee() {
     }
 
-    public Employee(String fistName, String lastName, String gender, int age, City city) {
+    public Employee(String fistName, String lastName, String gender, int age, int city) {
         this.fistName = fistName;
         this.lastName = lastName;
         this.gender = gender;
@@ -21,7 +30,7 @@ public class Employee {
         this.city = city;
     }
 
-    public Employee(int id, String fistName, String lastName, String gender, int age, City city) {
+    public Employee(int id, String fistName, String lastName, String gender, int age, int city) {
         this.id = id;
         this.fistName = fistName;
         this.lastName = lastName;
@@ -70,11 +79,11 @@ public class Employee {
         this.age = age;
     }
 
-    public City getCity() {
+    public int getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(int city) {
         this.city = city;
     }
 
@@ -83,7 +92,7 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return id == employee.id && age == employee.age && Objects.equals(fistName, employee.fistName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender) && Objects.equals(city, employee.city);
+        return id == employee.id && age == employee.age && city == employee.city && Objects.equals(fistName, employee.fistName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender);
     }
 
     @Override

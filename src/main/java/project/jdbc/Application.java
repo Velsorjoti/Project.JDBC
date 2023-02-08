@@ -37,6 +37,26 @@ public class Application {
                 System.out.println(cityOfEmployee);
             }
         }
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        Employee mss = new Employee("Sarah", "Reed", "Female", 46, 1);
+   //     employeeDAO.createEmployee(mss);
+
+  //      System.out.println(employeeDAO.readeEmployeeById(1));
+       /* List<Employee> listik = employeeDAO.readAllEmployee();
+
+        for (Employee employee: listik) {
+            System.out.println(employee);
+        }
+        Employee helen = new Employee(5, "Helen", "Burns", "Female", 13,2);
+        employeeDAO.updateEmployeeById(helen);*/
+        employeeDAO.deleteEmployeeById(employeeDAO.readeEmployeeById(9));
+
+
+
+
+
+
+
 
      //   try (Connection connection = DriverManager.getConnection(url, user, password)) {
         //    City city1 = new City(1,"London");
@@ -66,10 +86,10 @@ public class Application {
   //          employeeDAO.updateEmployeeById(4, "Adele");
   //      }
 
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+       /* try (Connection connection = DriverManager.getConnection(url, user, password)) {
             EmployeeDAO employeeDAO = new EmployeeDAOImpl(connection);
             employeeDAO.deleteEmployeeById(8);
-        }
+        }*/
 
     }
 }

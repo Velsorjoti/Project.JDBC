@@ -1,5 +1,8 @@
 package project.jdbc.dao;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import project.jdbc.config.HibernateSessionFactoryUtil;
 import project.jdbc.model.City;
 import project.jdbc.model.Employee;
 
@@ -8,13 +11,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
+    @Override
+    public void createEmployee(Employee employee) {
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();) {
+            Transaction transaction = session.beginTransaction();
+            session.save(employee);
+            transaction.commit();
+        }
+    }
+
+    @Override
+    public Employee readeEmployeeById(int id) {
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class, id);
+    }
+
+    @Override
+    public List<Employee> readAllEmployee() {
+        List<Employee> employeeListik = (List<Employee>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Employee ").list();
+        return employeeListik;
+    }
+
+    @Override
+    public void updateEmployeeById(Employee employee) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
+            Transaction transaction = session.beginTransaction();
+            session.update(employee);
+            transaction.commit();
+        }
+    }
+
+    @Override
+    public void deleteEmployeeById(Employee employee) {
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.delete(employee);
+            transaction.commit();
+        }
+    }
+
+
+
+    /*
     private Connection connection;
 
     public EmployeeDAOImpl(Connection connection) {
         this.connection = connection;
     }
 
-    @Override
+
+
+      @Override
     public void createEmployee(Employee employee) {
         try (PreparedStatement statement = connection.prepareStatement("INSERT INTO employee (fist_name, last_name, gender, age, city_id) VALUES ((?), (?), (?), (?), (?));" )) {
 
@@ -124,5 +170,5 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-    }
+    } */
 }
