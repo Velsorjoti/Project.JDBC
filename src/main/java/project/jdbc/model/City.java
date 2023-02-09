@@ -1,21 +1,34 @@
 package project.jdbc.model;
 
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
-
+@Entity
+@Table (name = "city")
 public class City {
-    private int cityid;
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column (name = "city_id")
+    private Integer cityid;
+    @Column (name = "city_name")
     private String cityName;
 
-    public City(int cityid, String cityName) {
-        this.cityid = cityid;
+    public City() {
+    }
+
+
+    public City(String cityName) {
         this.cityName = cityName;
     }
+
+    @OneToMany (mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Employee> employeeListik;
 
     public int getCityid() {
         return cityid;
     }
 
-    public void setCityid(int cityid) {
+    public void setCityid(Integer cityid) {
         this.cityid = cityid;
     }
 
@@ -27,12 +40,20 @@ public class City {
         this.cityName = cityName;
     }
 
+    public List<Employee> getEmployeeListik() {
+        return employeeListik;
+    }
+
+    public void setEmployeeListik(List<Employee> employeeListik) {
+        this.employeeListik = employeeListik;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         City city = (City) o;
-        return cityid == city.cityid && Objects.equals(cityName, city.cityName);
+        return Objects.equals(cityid, city.cityid) && Objects.equals(cityName, city.cityName);
     }
 
     @Override
