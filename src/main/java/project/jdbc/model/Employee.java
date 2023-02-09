@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Column (name = "fist_name")
     private String fistName;
     @Column (name = "last_name")
@@ -15,14 +15,15 @@ public class Employee {
     @Column (name = "gender")
     private String gender;
     @Column (name = "age")
-    private int age;
-    @Column(name = "city_id")
-    private Integer city;
+    private Integer age;
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn (name = "city_id")
+    private City city;
 
     public Employee() {
     }
 
-    public Employee(String fistName, String lastName, String gender, int age, int city) {
+    public Employee(String fistName, String lastName, String gender, Integer age) {
         this.fistName = fistName;
         this.lastName = lastName;
         this.gender = gender;
@@ -30,7 +31,7 @@ public class Employee {
         this.city = city;
     }
 
-    public Employee(int id, String fistName, String lastName, String gender, int age, int city) {
+    public Employee(Integer id, String fistName, String lastName, String gender, Integer age) {
         this.id = id;
         this.fistName = fistName;
         this.lastName = lastName;
@@ -39,11 +40,11 @@ public class Employee {
         this.city = city;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,19 +72,19 @@ public class Employee {
         this.gender = gender;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public int getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(int city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -92,7 +93,7 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return id == employee.id && age == employee.age && city == employee.city && Objects.equals(fistName, employee.fistName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender);
+        return Objects.equals(id, employee.id) && Objects.equals(fistName, employee.fistName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender) && Objects.equals(age, employee.age) && Objects.equals(city, employee.city);
     }
 
     @Override

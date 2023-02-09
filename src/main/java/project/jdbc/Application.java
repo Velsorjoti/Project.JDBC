@@ -1,5 +1,7 @@
 package project.jdbc;
 
+import project.jdbc.dao.CityDAO;
+import project.jdbc.dao.CityDAOImpl;
 import project.jdbc.dao.EmployeeDAO;
 import project.jdbc.dao.EmployeeDAOImpl;
 import project.jdbc.model.City;
@@ -16,7 +18,7 @@ public class Application {
       final String password = "Velveire";
       final String url = "jdbc:postgresql://localhost:5432/skypro";
 
-        try (final Connection connection = DriverManager.getConnection(url, user, password);
+  /*      try (final Connection connection = DriverManager.getConnection(url, user, password);
              PreparedStatement statement = connection.prepareStatement("SELECT  * FROM employee WHERE id=(?)")) {
 
             statement.setInt(1,1);
@@ -36,9 +38,38 @@ public class Application {
                 System.out.println(ageOfEmployee);
                 System.out.println(cityOfEmployee);
             }
-        }
+        }*/
+
+
+
+
+
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-        Employee mss = new Employee("Sarah", "Reed", "Female", 46, 1);
+        CityDAO cityDAO = new CityDAOImpl();
+
+//        City sheffield = new City("Sheffield");
+//        cityDAO.createCity(sheffield);
+
+        Employee mss = new Employee("Sarah", "Reed", "Female", 46);
+        City city1 = cityDAO.readeCityById(5);
+        mss.setCity(city1);
+        employeeDAO.createEmployee(mss);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ //       Employee mss = new Employee("Sarah", "Reed", "Female", 46, 1);
    //     employeeDAO.createEmployee(mss);
 
   //      System.out.println(employeeDAO.readeEmployeeById(1));
@@ -49,7 +80,7 @@ public class Application {
         }
         Employee helen = new Employee(5, "Helen", "Burns", "Female", 13,2);
         employeeDAO.updateEmployeeById(helen);*/
-        employeeDAO.deleteEmployeeById(employeeDAO.readeEmployeeById(9));
+  //      employeeDAO.deleteEmployeeById(employeeDAO.readeEmployeeById(9));
 
 
 
